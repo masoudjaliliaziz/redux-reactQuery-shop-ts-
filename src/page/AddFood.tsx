@@ -1,22 +1,42 @@
 import { useForm } from "react-hook-form";
 import { useAddFood } from "../feature/food/hook/useAddFood";
+import { useState } from "react";
+import { Food } from "../types/foodTypes";
+import { useUpdateFood } from "../feature/food/hook/useUpdateFood";
 
-function AddFood() {
+type Props = {
+  item?: Food;
+};
+function AddFood({ item = {} }: Props) {
+  const { name, id } = item;
+  const hasEditSession = Boolean(item.id);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const { mutate, isPending } = useAddFood();
-
+  } = useForm({
+    defaultValues: {
+      name: hasEditSession ? name : "",
+    },
+  });
+  const { mutate: AddMutate, isPending: AddPending } = useAddFood();
+  const { mutate: updateMutate, isPending: UpdatePending } = useUpdateFood();
   function onSubmit(val) {
-    const newFood = {
-      ...val,
-      createdAt: "123456",
-      avatar: "123465",
-    };
-    mutate(newFood);
+    if (!hasEditSession) {
+      const newFood = {
+        ...val,
+        createdAt: "123456",
+        avatar: "123465",
+      };
+
+      AddMutate(newFood);
+    } else {
+      const data = { ...val, name: val.name };
+      updateMutate({ id, data });
+    }
   }
+  const isPending = AddPending || UpdatePending;
   return (
     <form
       action=""
