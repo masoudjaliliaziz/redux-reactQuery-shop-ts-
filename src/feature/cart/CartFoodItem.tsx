@@ -1,6 +1,6 @@
 import { CartFood } from "../../types/foodTypes";
 import { HiPlus, HiX } from "react-icons/hi";
-import { deleteFoodFromCart } from "../food/foodSlice";
+import { addFoodToCart, deleteFoodFromCart } from "../food/foodSlice";
 import { useAppDispatch } from "../../hook/reduxHook";
 
 type Props = {
@@ -13,11 +13,18 @@ function CartFoodItem({ item }: Props) {
     dispatch(deleteFoodFromCart(id));
   }
 
+  function handleAddQuantity() {
+    dispatch(addFoodToCart(item));
+  }
+
   return (
     <div className=" flex flex-col w-[30%]">
       <div className=" h-36 rounded-2xl px-1.5 py-5 flex flex-col items-center justify-around border-slate-100 border-2 shadow-xl   relative">
         <div className="absolute right-1.5 top-1.5 flex gap-1.5">
-          <HiPlus className="text-green-500 cursor-pointer hover:bg-green-500 rounded-md hover:text-white" />
+          <HiPlus
+            onClick={handleAddQuantity}
+            className="text-green-500 cursor-pointer hover:bg-green-500 rounded-md hover:text-white"
+          />
           <HiX
             className="text-red-800 cursor-pointer hover:bg-red-500 rounded-md hover:text-white"
             onClick={() => handleDeleteItem(item.id)}

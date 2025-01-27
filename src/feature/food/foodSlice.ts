@@ -24,7 +24,7 @@ const foodSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       if (existingFoodIndex !== -1) {
-        state.cart[existingFoodIndex].quantity += action.payload.quantity;
+        state.cart[existingFoodIndex].quantity += 1;
       } else {
         state.cart.push(action.payload);
       }
