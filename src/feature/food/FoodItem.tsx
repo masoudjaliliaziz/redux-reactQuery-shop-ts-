@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { Food } from "../../types/foodTypes";
-import { HiPencil, HiX } from "react-icons/hi";
+import { HiPencil, HiShoppingCart, HiX } from "react-icons/hi";
 import { useDeleteFood } from "./hook/useDeleteFood";
 import AddFood from "../../page/AddFood";
-
+import { useAppDispatch } from "../../hook/reduxHook";
+import { addFoodToCart } from "./foodSlice";
 type Props = {
   item: Food;
 };
 
 function FoodItem({ item }: Props) {
+  const dispatch = useAppDispatch();
   const [showEdit, setShowEdit] = useState(false);
   const { mutate } = useDeleteFood();
   function handleDelete() {
     mutate(item.id);
+  }
+  function handleAddToCart() {
+    const newCartItem = { ...item, quantity: 1 };
+    dispatch(addFoodToCart(newCartItem));
   }
 
   return (
@@ -26,6 +32,10 @@ function FoodItem({ item }: Props) {
           <HiX
             className="text-red-800 cursor-pointer hover:bg-red-500 rounded-md hover:text-white"
             onClick={handleDelete}
+          />
+          <HiShoppingCart
+            className="text-blue-800 cursor-pointer hover:bg-blue-500 rounded-md hover:text-white"
+            onClick={handleAddToCart}
           />
         </div>
         <h1 className="font-bold">{item.name}</h1>

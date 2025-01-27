@@ -1,13 +1,15 @@
-import { Food } from "./../../types/foodTypes";
+import { CartFood, Food } from "./../../types/foodTypes";
 import { PayloadAction } from "./../../../node_modules/@reduxjs/toolkit/src/createAction";
 import { createSlice } from "@reduxjs/toolkit";
 
 type FoodState = {
   foods: Food[];
+  cart: CartFood[];
 };
 
 const initialState: FoodState = {
   foods: [],
+  cart: [],
 };
 
 const foodSlice = createSlice({
@@ -17,8 +19,21 @@ const foodSlice = createSlice({
     setFood: (state, action: PayloadAction<Food[]>) => {
       state.foods = action.payload;
     },
+    addFoodToCart: (state, action: PayloadAction<CartFood>) => {
+      const existingFoodIndex = state.cart.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (existingFoodIndex !== -1) {
+        state.cart[existingFoodIndex].quantity += action.payload.quantity;
+      } else {
+        state.cart.push(action.payload);
+      }
+    },
+    deleteFoodFromCart: (state, action: PayloadAction<string>) => {
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
+    },
   },
 });
 
-export const { setFood } = foodSlice.actions;
+export const { setFood, addFoodToCart, deleteFoodFromCart } = foodSlice.actions;
 export default foodSlice.reducer;
