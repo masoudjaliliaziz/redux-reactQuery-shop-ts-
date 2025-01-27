@@ -10,10 +10,12 @@ function Home() {
 
   if (isLoading) return <h1>loading...</h1>;
   return (
-    <div className="flex flex-wrap w-1/2 justify-between items-center  gap-3 p-6 mx-auto ">
-      {data?.map((food: Food) => (
-        <FoodItem key={food.id} item={food} />
-      ))}
+    <div className="flex flex-col flex-wrap w-full justify-between items-center   gap-3 p-6 mx-auto ">
+      <div className="w-2/3  flex flex-row flex-wrap justify-center gap-3 p-3">
+        {data?.map((food: Food) => (
+          <FoodItem key={food.id} item={food} />
+        ))}
+      </div>
       <button
         onClick={() => setShowForm((show) => !show)}
         className="bg-sky-500 p-1.5 rounded-md font-bold cursor-pointer hover:bg-sky-600 hover:text-white"
