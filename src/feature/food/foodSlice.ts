@@ -20,7 +20,14 @@ const foodSlice = createSlice({
       state.foods = action.payload;
     },
     addFoodToCart: (state, action: PayloadAction<CartFood>) => {
-      state.cart.push(action.payload);
+      const existingFoodIndex = state.cart.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (existingFoodIndex !== -1) {
+        state.cart[existingFoodIndex].quantity += action.payload.quantity;
+      } else {
+        state.cart.push(action.payload);
+      }
     },
   },
 });
