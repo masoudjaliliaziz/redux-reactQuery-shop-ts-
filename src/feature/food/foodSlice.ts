@@ -29,8 +29,11 @@ const foodSlice = createSlice({
         state.cart.push(action.payload);
       }
     },
+    deleteFoodFromCart: (state, action: PayloadAction<string>) => {
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
+    },
   },
 });
 
-export const { setFood, addFoodToCart } = foodSlice.actions;
+export const { setFood, addFoodToCart, deleteFoodFromCart } = foodSlice.actions;
 export default foodSlice.reducer;
