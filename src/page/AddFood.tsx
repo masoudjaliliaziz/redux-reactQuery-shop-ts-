@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useAddFood } from "../feature/food/hook/useAddFood";
-import { useState } from "react";
+
 import { Food } from "../types/foodTypes";
 import { useUpdateFood } from "../feature/food/hook/useUpdateFood";
-
+import classNames from "classnames";
 type Props = {
   item?: Food;
 };
@@ -61,10 +61,14 @@ function AddFood({ item = {} }: Props) {
         )}
       </div>
       <button
-        className="bg-sky-500 font-bold text-white p-1.5 rounded-lg w-1/3 hover:bg-sky-700 cursor-pointer"
+        className={classNames(
+          " font-bold text-white p-1.5 rounded-lg w-1/3 cursor-pointer",
+          { "bg-sky-500  hover:bg-sky-700": !hasEditSession },
+          { "bg-green-500 hover:bg-green-700": hasEditSession }
+        )}
         type="submit"
       >
-        add
+        {hasEditSession ? "edit" : "add"}
       </button>
     </form>
   );
