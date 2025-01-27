@@ -5,6 +5,8 @@ import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "./../store";
 import Cart from "./page/Cart";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import AppLayout from "./ui/AppLayout";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -17,8 +19,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
-        <Home />
-        <Cart />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+            </Route>
+            <Route path="*" element={<h1>page not found</h1>} />
+          </Routes>
+        </BrowserRouter>
       </Provider>
       <Toaster
         position="top-center"

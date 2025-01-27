@@ -1,6 +1,6 @@
 import { HiX } from "react-icons/hi";
 import { useAppDispatch, useAppSelector } from "../hook/reduxHook";
-import { CartFood, Food } from "../types/foodTypes";
+import { CartFood } from "../types/foodTypes";
 import { deleteFoodFromCart } from "../feature/food/foodSlice";
 
 function Cart() {
