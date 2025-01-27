@@ -4,3 +4,11 @@ export type Food = {
   createdAt: string;
   name: string;
 };
+
+export type CartFood = {
+  avatar: string;
+  id: string;
+  createdAt: string;
+  name: string;
+  quantity: number;
+};

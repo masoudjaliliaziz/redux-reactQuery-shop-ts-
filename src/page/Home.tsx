@@ -2,7 +2,6 @@ import FoodItem from "../feature/food/FoodItem";
 import { Food } from "../types/foodTypes";
 import AddFood from "./AddFood";
 import { useFoods } from "../feature/food/hook/useFoods";
-import { useDeleteFood } from "../feature/food/hook/useDeleteFood";
 import { useState } from "react";
 
 function Home() {
