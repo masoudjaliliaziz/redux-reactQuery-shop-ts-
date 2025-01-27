@@ -23,8 +23,7 @@ export async function deleteFood(id: number | string) {
   return await res.data;
 }
 
-export async function updateFood(id: number | string, data) {
-  console.log(data);
+export async function updateFood(id: number | string, data: Partial<Food>) {
   const res = await axios.put(
     `https://67960d61bedc5d43a6c4254a.mockapi.io/api/v1/food/${id}`,
     data
