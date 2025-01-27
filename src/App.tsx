@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "./../store";
+import Cart from "./page/Cart";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -17,6 +18,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
         <Home />
+        <Cart />
       </Provider>
       <Toaster
         position="top-center"
